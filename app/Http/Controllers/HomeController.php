@@ -19,7 +19,6 @@ class HomeController extends Controller
 {
     function index(Request $request)
     {
-        $crypt = new CryptController();
         $configHariPengiriman = ConfigHariPengiriman::orderBy('id_config_hari_pengiriman', 'DESC')->first();
         $driver = Driver::findOrFail($request->session()->get('id_driver'));
         $configWaktuPengiriman = ConfigWaktuPengiriman::whereHas('configWaktuPengirimanLog', function ($query) use ($configHariPengiriman, $driver) {
@@ -58,7 +57,7 @@ class HomeController extends Controller
             'crypt' => new CryptController(),
             'driverPengiriman' => $driverPengiriman,
         ];
-        setcookie('urutand', $crypt->crypt($request->session()->get('id_driver'), 0));
+        setcookie('urutand', $driver->id_driver, 0);
         return view('home/index', $data);
     }
 }

@@ -131,7 +131,7 @@
                   <div class="col text-right">
                     <a href="/pesanan/detail?id={{ $crypt->crypt($transaksiApps->id_transaksi_apps) }}" class="btn btn-primary btn-sm">
                       Detail
-                      <i class="fas fa-angle-double-right"></i>
+                      <i class="fas fa-angle-do ble-right"></i>
                     </a>
                   </div>
                 </div>

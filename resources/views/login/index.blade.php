@@ -20,17 +20,13 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="/assets/css/adminlte.min.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="/assets/css/loading.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;500;600&display=swap" rel="stylesheet">
     <!-- Toastr -->
     <link rel="stylesheet" href="/assets/css/toastr.min.css">
 </head>
 <body class="hold-transition login-page" style="background-color: white">
-  {{-- <div class="loading" style="display: none; z-index: 10000 !important">
-    <div class="position-fixed d-flex w-100 h-100 align-items-center justify-content-center" style="z-index: 10000 !important">
-      <img src="https://storage.googleapis.com/assets-warungsegar/animations/loading.gif" width="80" style="border-radius: 40px; z-index: 20">
-      <div class="bg-dark position-fixed d-flex w-100 h-100" style="opacity: 0.6"></div>
-    </div>
-  </div> --}}
+<div class="loading" style="display: none">Loading&#8230;</div>
 <div class="login-box bf-success mw-custom">
   <div class="login-logo">
     <img src="https://storage.googleapis.com/assets-warungsegar/icons/logo%20warungsegar.png" width="150" height="150">

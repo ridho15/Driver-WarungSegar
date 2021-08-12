@@ -65,14 +65,14 @@
         </div>
       </div>
       <div class="card-body">
-        <div class="row mt-2">
-          <div class="col-3">
+        <div class="row">
+          <div class="col-3 align-self-center">
             @foreach ($transaksiApps->transaksiAppsDetail as $transaksiAppsDetail)
                 {{-- {{ print_r($transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar[0]->gambar) }} --}}
                 @if (count($transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar) > 0)
-                <img src="{{ $transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar[0]->gambar }}" alt="Gambar Produk" width="60" height="60">
+                  <img src="{{ $transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar[0]->gambar }}" alt="Gambar Produk" width="60" height="60">
                 @else
-                    Gambar Produk tidak tersedia
+                  <img src="https://storage.googleapis.com/assets-warungsegar/images/defaultProduk.jpg" alt="Gambar Produk" width="60" height="60">
                 @endif
                 @php
                     break;
@@ -126,7 +126,7 @@
           </div>
         </div>
         <div class="row mt-3">
-          @if ($level == 4)
+          @if ($level == 2)
           <div class="col-12">
             <a href="#" class="btn btn-info btn-sm btn-block btn-pilih-driver" data-id="{{ $transaksiApps->id_transaksi_apps }}" data-driver="{{ $transaksiApps->id_driver }}">
               <i class="fas fa-biking"></i>
@@ -160,31 +160,27 @@
 </div>
 <hr>
 <span class="font-weight-bold">Daftar Produk</span>
-<div class="row listSearch">
   @foreach ($transaksiApps->transaksiAppsDetail as $transaksiAppsDetail)
-    <div class="col-12 card-data mt-2">
-      <div class="card card-body">
-        <div class="row">
-          <div class="col-2 align-self-center">
-            @if ($transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar)
-                <img src="{{ $transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar[0]->gambar }}" alt="GambarProduk" width="50" height="50" class="rounded">
-            @else
-              <img src="https://storage.googleapis.com/assets-warungsegar/images/defaultProduk.jpg" alt="GambarProduk" width="50" height="50" class="rounded">
-            @endif
-          </div>
-          <div class="col-6 align-self-center">
-            <span class="font-weight-bold">{{ $transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->nama_produk }}</span>
-            <small class="font-weight-bold d-block">{{ $transaksiAppsDetail->satuan }} {{ $transaksiAppsDetail->satuanProdukLog->nama_satuan }} x {{ $transaksiAppsDetail->jumlah }} = {{ $transaksiAppsDetail->satuan * $transaksiAppsDetail->jumlah }} {{ $transaksiAppsDetail->satuanProdukLog->nama_satuan }}</small>
-          </div>
-          <div class="col-4 text-right">
-            <small class="font-weight-bold text-center text-primary">Subtotal</small>
-            <span class="font-weight-bold">Rp.{{ number_format($transaksiAppsDetail->subtotal,0,',','.') }}</span>
-          </div>
+    <div class="card card-body mt-2">
+      <div class="row">
+        <div class="col-3 align-self-center">
+          @if ($transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar)
+              <img src="{{ $transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar[0]->gambar }}" alt="GambarProduk" width="50" height="50" class="rounded">
+          @else
+            <img src="https://storage.googleapis.com/assets-warungsegar/images/defaultProduk.jpg" alt="GambarProduk" width="50" height="50" class="rounded">
+          @endif
+        </div>
+        <div class="col-5 text-left align-self-center">
+          <span class="font-weight-bold">{{ $transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->nama_produk }}</span>
+          <small class="font-weight-bold d-block">{{ $transaksiAppsDetail->satuan }} {{ $transaksiAppsDetail->satuanProdukLog->nama_satuan }} x {{ $transaksiAppsDetail->jumlah }} = {{ $transaksiAppsDetail->satuan * $transaksiAppsDetail->jumlah }} {{ $transaksiAppsDetail->satuanProdukLog->nama_satuan }}</small>
+        </div>
+        <div class="col-4 text-left px-0">
+          <small class="font-weight-bold text-center text-primary">Subtotal</small>
+          <span class="font-weight-bold">Rp.{{ number_format($transaksiAppsDetail->subtotal,0,',','.') }}</span>
         </div>
       </div>
     </div>
-    @endforeach
-  </div>
+  @endforeach
 <hr>
 <div class="card card-body">
   <div class="row">

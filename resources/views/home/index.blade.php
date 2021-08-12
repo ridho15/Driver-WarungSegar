@@ -157,12 +157,12 @@
                 </div>
                 <div class="card-body">
                   <div class="row mt-2">
-                    <div class="col-3">
+                    <div class="col-3 align-self-center">
                       @foreach ($transaksiApps->transaksiAppsDetail as $transaksiAppsDetail)
                           @if (count($transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar) > 0)
-                          <img src="{{ $transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar[0]->gambar }}" alt="Gambar Produk" width="60" height="60">
+                            <img src="{{ $transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar[0]->gambar }}" alt="Gambar Produk" width="60" height="60">
                           @else
-                              Gambar Produk tidak tersedia
+                            <img src="https://storage.googleapis.com/assets-warungsegar/images/defaultProduk.jpg" alt="Gambar Produk" width="60" height="60">
                           @endif
                           @php
                               break;
@@ -444,12 +444,12 @@
                 </div>
                 <div class="card-body">
                   <div class="row mt-2">
-                    <div class="col-3">
+                    <div class="col-3 align-self-center">
                       @foreach ($transaksiApps->transaksiAppsDetail as $transaksiAppsDetail)
                           @if (count($transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar) > 0)
                           <img src="{{ $transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar[0]->gambar }}" alt="Gambar Produk" width="60" height="60">
                           @else
-                              Gambar Produk tidak tersedia
+                            <img src="https://storage.googleapis.com/assets-warungsegar/images/defaultProduk.jpg" alt="Gambar Produk" width="60" height="60">
                           @endif
                           @php
                               break;

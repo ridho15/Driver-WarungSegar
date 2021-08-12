@@ -38,7 +38,7 @@ class ProfileController extends Controller
         $request->session()->forget('level');
 
         Cookie::queue(Cookie::forget('urutand'));
-        setcookie('urutand', '', time() - 10);
+        setcookie('urutand', '', 0);
         return redirect('/')->with('success', 'Logout Driver Berhasil');
     }
 

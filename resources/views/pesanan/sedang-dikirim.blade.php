@@ -117,7 +117,7 @@
                     <hr>
                     <div class="row">
                       <div class="col">
-                        <span>Total transaksiApps : </span>
+                        <span>Total Item : </span>
                         <span class="font-weight-bold">{{ count($transaksiApps->transaksiAppsDetail) }}</span>
                       </div>
                       <div class="col text-right">
@@ -196,9 +196,9 @@
                       <div class="col-3">
                         @foreach ($transaksiApps->transaksiAppsDetail as $transaksiAppsDetail)
                             @if (count($transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar) > 0)
-                            <img src="{{ $transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar[0]->gambar }}" alt="Gambar Produk" width="60" height="60">
+                              <img src="{{ $transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar[0]->gambar }}" alt="Gambar Produk" width="60" height="60">
                             @else
-                                Gambar Produk tidak tersedia
+                              <img src="https://storage.googleapis.com/assets-warungsegar/images/defaultProduk.jpg" alt="Gambar Produk" width="60" height="60">
                             @endif
                             @php
                                 break;
@@ -247,7 +247,7 @@
                     <hr>
                     <div class="row">
                       <div class="col">
-                        <span>Total transaksiApps : </span>
+                        <span>Total Item : </span>
                         <span class="font-weight-bold">{{ count($transaksiApps->transaksiAppsDetail) }}</span>
                       </div>
                       <div class="col text-right">

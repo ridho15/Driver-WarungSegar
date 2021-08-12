@@ -48,7 +48,7 @@ class LoginController extends Controller
             'nama_driver' => $driver->nama_driver,
             'level' => $driver->level
         ]);
-        setcookie('urutand', $crypt->crypt($driver->id_driver), 0);
+        setcookie('urutand', $driver->id_driver, 0);
         return redirect('/')->with('success', 'Login Driver Berhasil');
     }
 }

@@ -29,6 +29,9 @@ class SendNotificationController extends Controller
                 ),
                 'headings' => $heading,
                 'contents' => $content,
+                'android_sound' => 'notif',
+                'small_icon' => 'ic_stat_name',
+                'android_channel_id' => 'f80c8eea-d54e-4aa7-be5c-25fa3400997b'
             ]
         ));
 
@@ -56,6 +59,9 @@ class SendNotificationController extends Controller
                 'filters' => array(array("field" => "tag", "key" => "user_id_unreal", "relation" => "=", "value" => $data['id_user'])),
                 'headings' => $heading,
                 'contents' => $content,
+                'android_sound' => 'notif',
+                'small_icon' => 'ic_stat_name',
+                'android_channel_id' => 'dfa17307-f204-4f1b-8cf6-8fd336d663f5'
             ]
         ));
 
