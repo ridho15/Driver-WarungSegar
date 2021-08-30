@@ -18,7 +18,7 @@ class PesananController extends Controller
     {
         $crypt = new CryptController();
         $transaksiApps = TransaksiApps::findOrFail($crypt->crypt($request->id, 'd'));
-        $driver = Driver::where('id_driver', '!=', $request->session()->get('id_driver'))->where('id_kota', 1)->get();
+        $driver = Driver::where('status', 1)->where('id_kota', 1)->get();
         $data = [
             'title' => 'Detail Pesanan',
             'active' => 'Detail Pesanan',
@@ -29,7 +29,6 @@ class PesananController extends Controller
             'driver' => $driver,
             'level' => $request->session()->get('level')
         ];
-
         return view('pesanan.detail-pesanan', $data);
     }
 

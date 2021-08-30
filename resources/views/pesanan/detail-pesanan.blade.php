@@ -68,7 +68,6 @@
         <div class="row">
           <div class="col-3 align-self-center">
             @foreach ($transaksiApps->transaksiAppsDetail as $transaksiAppsDetail)
-                {{-- {{ print_r($transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar[0]->gambar) }} --}}
                 @if (count($transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar) > 0)
                   <img src="{{ $transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar[0]->gambar }}" alt="Gambar Produk" width="60" height="60">
                 @else
@@ -93,9 +92,19 @@
               @endif
             </small>
           </div>
-          <div class="col-4 text-left font-weight-bold align-self-center">
-            <span class="text-primary h6 d-block mb-0">Total Jual</span>
-            <span>Rp {{ number_format($transaksiApps->total, 0, ',', '.') }}</span>
+          <div class="col-4 px-1 text-left font-weight-bold align-self-center">
+            <span class="text-primary d-block mb-0">Total Jual</span>
+            <span>Rp.
+              @php
+                  $total = 0;
+                  foreach($transaksiApps->transaksiAppsDetail as $transaksiAppsDetail){
+                    if ($transaksiAppsDetail->status_beli == 1) {
+                      $total += $transaksiAppsDetail->jumlah * $transaksiAppsDetail->harga_jual;
+                    }
+                  }
+                  echo number_format($total, 0,',','.');
+              @endphp
+            </span>
           </div>
         </div>
         <hr>
@@ -121,11 +130,11 @@
         <hr>
         <div class="row">
           <div class="col">
-            <small>Total item : </small>
-            <small class="font-weight-bold">{{ count($transaksiApps->transaksiAppsDetail) }} ({{ $transaksiApps->transaksiAppsDetail->where('status_beli', 1)->count() }} Diproses)</small>
+            <span>Total item : </span>
+            <span class="font-weight-bold">{{ count($transaksiApps->transaksiAppsDetail) }}</span>
           </div>
         </div>
-        <div class="row mt-3">
+        <div class="row">
           @if ($level == 2)
           <div class="col-12">
             <a href="#" class="btn btn-info btn-sm btn-block btn-pilih-driver" data-id="{{ $transaksiApps->id_transaksi_apps }}" data-driver="{{ $transaksiApps->id_driver }}">
@@ -155,40 +164,113 @@
 <div class="card card-body">
   <div class="form-group">
     <label for="pencarian">Pencarian</label>
-    <input type="text" class="form-control pencarian" name="pencarian" id="pencarian">
+    <input type="text" class="form-control pencarian" name="pencarian" id="pencarian" placeholder="Silahkan Cari Produk">
   </div>
 </div>
 <hr>
 <span class="font-weight-bold">Daftar Produk</span>
+<div class="row listSearch">
   @foreach ($transaksiApps->transaksiAppsDetail as $transaksiAppsDetail)
-    <div class="card card-body mt-2">
-      <div class="row">
-        <div class="col-3 align-self-center">
-          @if ($transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar)
-              <img src="{{ $transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar[0]->gambar }}" alt="GambarProduk" width="50" height="50" class="rounded">
-          @else
-            <img src="https://storage.googleapis.com/assets-warungsegar/images/defaultProduk.jpg" alt="GambarProduk" width="50" height="50" class="rounded">
-          @endif
-        </div>
-        <div class="col-5 text-left align-self-center">
-          <span class="font-weight-bold">{{ $transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->nama_produk }}</span>
-          <small class="font-weight-bold d-block">{{ $transaksiAppsDetail->satuan }} {{ $transaksiAppsDetail->satuanProdukLog->nama_satuan }} x {{ $transaksiAppsDetail->jumlah }} = {{ $transaksiAppsDetail->satuan * $transaksiAppsDetail->jumlah }} {{ $transaksiAppsDetail->satuanProdukLog->nama_satuan }}</small>
-        </div>
-        <div class="col-4 text-left px-0">
-          <small class="font-weight-bold text-center text-primary">Subtotal</small>
-          <span class="font-weight-bold">Rp.{{ number_format($transaksiAppsDetail->subtotal,0,',','.') }}</span>
+    <div class="col-12 mt-3">
+      <div class="card card-body card-data">
+        <div class="row px-1">
+          <div class="col-2 align-self-center text-left px-1">
+            @if ($transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar)
+                <img src="{{ $transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->produkMasterGambar[0]->gambar }}" alt="GambarProduk" width="50" height="50" class="rounded">
+            @else
+              <img src="https://storage.googleapis.com/assets-warungsegar/images/defaultProduk.jpg" alt="GambarProduk" width="50" height="50" class="rounded">
+            @endif
+          </div>
+          <div class="col-6 text-left align-self-center">
+            <span class="font-weight-bold">{{ $transaksiAppsDetail->produkB2CHarga->produkB2C->produkSub->produkMaster->nama_produk }}</span>
+            <small class="font-weight-bold d-block">{{ $transaksiAppsDetail->satuan }} {{ $transaksiAppsDetail->satuanProdukLog->nama_satuan }} x {{ $transaksiAppsDetail->jumlah }} = {{ $transaksiAppsDetail->satuan * $transaksiAppsDetail->jumlah }} {{ $transaksiAppsDetail->satuanProdukLog->nama_satuan }}</small>
+          </div>
+          <div class="col text-right align-self-center px-1">
+            <span class="font-weight-bold d-block text-primary">Total</span>
+            <span class="font-weight-bold">Rp.{{ number_format($transaksiAppsDetail->subtotal,0,',','.') }}</span>
+          </div>
         </div>
       </div>
     </div>
   @endforeach
+</div>
 <hr>
 <div class="card card-body">
   <div class="row">
-    <div class="col">
-      <span class="font-weight-bold">Total : </span>
+    <div class="col-5">
+      <span class="font-weight-bold">Total Jual </span>
     </div>
-    <div class="col-5 text-right align-self-center">
-      <span class="font-weight-bold text-primary">Rp.{{ number_format($transaksiApps->total, 0,',','.') }}</span>
+    <div class="col-2 px-1">
+      : Rp.
+    </div>
+    <div class="col text-right align-self-center">
+      <span class="font-weight-bold text-primary">
+        @php
+            $total_jual = 0;
+            foreach($transaksiApps->transaksiAppsDetail as $transaksiAppsDetail){
+              if ($transaksiAppsDetail->status_beli == 1) {
+                $total_jual += $transaksiAppsDetail->jumlah * $transaksiAppsDetail->harga_jual;
+              }
+            }
+            echo number_format($total_jual, '0',',','.');
+        @endphp
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <span class="font-weight-bold">Ongkir </span>
+    </div>
+    <div class="col-2 px-1">
+      : Rp.
+    </div>
+    <div class="col text-right align-self-center">
+      <span class="font-weight-bold text-primary">
+        {{ number_format($transaksiApps->ongkir,0,',','.') }}
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <span class="font-weight-bold">Pot.Ongkir </span>
+    </div>
+    <div class="col-2 px-1">
+      : Rp.
+    </div>
+    <div class="col text-right align-self-center">
+      <span class="font-weight-bold text-primary">
+        {{ number_format($transaksiApps->potongan_ongkir,0,',','.') }}
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <span class="font-weight-bold">Pot.Belanja </span>
+    </div>
+    <div class="col-2 px-1">
+      : Rp.
+    </div>
+    <div class="col text-right align-self-center">
+      <span class="font-weight-bold text-primary">
+        {{ number_format($transaksiApps->potongan_belanja,0,',','.') }}
+      </span>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-5">
+      <span class="font-weight-bold">Total Bayar </span>
+    </div>
+    <div class="col-2 px-1">
+      : Rp.
+    </div>
+    <div class="col text-right align-self-center">
+      <span class="font-weight-bold text-primary">
+        @php
+            $total_bayar = ($total_jual + $transaksiApps->total_ongkir) - ($transaksiApps->potongan_ongkir + $transaksiApps->potongan_belanja);
+            echo number_format($total_bayar,0,',','.');
+        @endphp
+      </span>
     </div>
   </div>
 </div>
@@ -282,11 +364,11 @@
       })
 
       $('.pencarian').on('keyup', function(){
-        var pencarian = $(this).val().toLowerCase()
-        $('.listSearch .card-data').filter(function(){
-          $(this).toggle($(this).text().toLowerCase().indexOf(pencarian) > -1)
-        })
+      var pencarian = $(this).val().toLowerCase()
+      $('.listSearch .card-data').filter(function(){
+        $(this).toggle($(this).text().toLowerCase().indexOf(pencarian) > -1)
       })
+    })
 
       $('.btn-selesai').click(function(e){
         e.preventDefault()

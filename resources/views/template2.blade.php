@@ -85,12 +85,13 @@
         const n = url.includes("#");
         const pdf = url.includes(".pdf");
         const wa = url.includes("wa.me");
+        const google = url.includes("www.google.com")
         
         if(n==true)
         {
           return false;
         }
-        else if(pdf==true || wa==true)
+        else if(pdf == true || wa == true || google == true)
         {
           window.open(url);
         }
